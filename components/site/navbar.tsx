@@ -1,33 +1,26 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useEffect, useState } from "react"
-import ThemeToggle from "@/components/theme-toggle"
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-
-const links = [
-  { href: "#frontend", label: "Frontend & Animation" },
-  { href: "#backend", label: "Backend APIs" },
-  { href: "#cms", label: "CMS (Payload)" },
-  { href: "#realtime", label: "Real-Time Apps" },
-  { href: "#apis", label: "3rd-Party APIs" },
-  { href: "#payload-advanced", label: "Payload Advanced" },
-  { href: "#maps", label: "Maps & Geo" },
-  { href: "#aws", label: "AWS & Cloud" },
-  { href: "#payments", label: "Payments" },
-  { href: "#advanced-queries", label: "Advanced Queries" },
-]
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import ThemeToggle from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Github, Linkedin } from "lucide-react";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10)
-    onScroll()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const SkillItems = () => (
     <>
@@ -44,13 +37,15 @@ export default function Navbar() {
         <a href="#skills-others">Others</a>
       </DropdownMenuItem>
     </>
-  )
+  );
 
   return (
     <header
       id="top"
       className={`sticky top-0 z-50 transition-colors ${
-        scrolled ? "bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b" : ""
+        scrolled
+          ? "bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b"
+          : ""
       }`}
     >
       <nav className="container mx-auto flex items-center justify-between px-4 py-3">
@@ -75,14 +70,45 @@ export default function Navbar() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground">
+          <Link
+            href="/about"
+            className="text-sm text-muted-foreground hover:text-foreground"
+          >
             About
           </Link>
         </div>
 
         <div className="flex items-center gap-2">
+          <a
+            href="https://github.com/madhavbansal"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub profile"
+            className="hidden md:inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-muted"
+            title="GitHub"
+          >
+            <Github className="h-4 w-4" />
+            <span className="sr-only">GitHub</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/madhavbansal/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn profile"
+            className="hidden md:inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-muted"
+            title="LinkedIn"
+          >
+            <Linkedin className="h-4 w-4" />
+            <span className="sr-only">LinkedIn</span>
+          </a>
+          {/* contact + theme */}
           <ThemeToggle />
-          <Button asChild size="sm" variant="secondary" className="hidden md:inline-flex">
+          <Button
+            asChild
+            size="sm"
+            variant="secondary"
+            className="hidden md:inline-flex"
+          >
             <a href="mailto:bansalmadhav787@gmail.com">Contact</a>
           </Button>
         </div>
@@ -103,9 +129,36 @@ export default function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground">
+            <Link
+              href="/about"
+              className="text-sm text-muted-foreground hover:text-foreground"
+            >
               About
             </Link>
+            <div className="flex items-center gap-2">
+              <a
+                href="https://github.com/madhavbansal"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub profile"
+                className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-muted"
+                title="GitHub"
+              >
+                <Github className="h-4 w-4" />
+                <span className="sr-only">GitHub</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/madhavbansal/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn profile"
+                className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-muted"
+                title="LinkedIn"
+              >
+                <Linkedin className="h-4 w-4" />
+                <span className="sr-only">LinkedIn</span>
+              </a>
+            </div>
             <Button asChild size="sm" variant="secondary">
               <a href="mailto:bansalmadhav787@gmail.com">Contact</a>
             </Button>
@@ -113,5 +166,5 @@ export default function Navbar() {
         </div>
       </div>
     </header>
-  )
+  );
 }

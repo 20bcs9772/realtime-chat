@@ -1,41 +1,50 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import SkillModal from "@/components/skill-modal"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import SkillModal from "@/components/skill-modal";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import FullViewportSection from "@/components/sections/full-viewport-section";
+import { UnderTheHood } from "@/components/under-the-hood";
 
-type Panel = "request" | "response"
+type Panel = "request" | "response";
 
 export default function BackendSection() {
-  const [open, setOpen] = useState(false)
-  const [panel, setPanel] = useState<Panel>("request")
+  const [open, setOpen] = useState(false);
+  const [panel, setPanel] = useState<Panel>("request");
 
   const request = {
     method: "POST",
     url: "/api/checkout",
     body: { amount: 1999, currency: "INR", userId: "usr_123" },
     headers: { "Content-Type": "application/json" },
-  }
+  };
 
   const response = {
     status: 200,
     body: { id: "txn_abc123", success: true, message: "Payment initiated" },
     headers: { "x-request-id": "req_987" },
-  }
+  };
 
   return (
-    <div>
+    <FullViewportSection id="backend-section" ariaLabel="Backend APIs demo">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold">Backend (Node.js + Express)</h2>
-          <p className="mt-2 text-muted-foreground">API request/response visualization and mock flow.</p>
+          <h2 className="text-2xl md:text-3xl font-bold">
+            Backend (Node.js + Express)
+          </h2>
+          <p className="mt-2 text-muted-foreground">
+            API request/response visualization and mock flow.
+          </p>
         </div>
-        <Button variant="outline" onClick={() => setOpen(true)}>
-          Learn more
-        </Button>
+        <div className="flex items-center gap-2">
+          <UnderTheHood text="Built with Framer Motion. Simulates API flows; toggles request/response with local state." />
+          <Button variant="outline" onClick={() => setOpen(true)}>
+            Learn more
+          </Button>
+        </div>
       </div>
 
       <Card className="mt-8 overflow-hidden">
@@ -43,7 +52,7 @@ export default function BackendSection() {
           <button
             className={cn(
               "rounded-md px-3 py-1 text-sm",
-              panel === "request" ? "bg-background" : "text-muted-foreground",
+              panel === "request" ? "bg-background" : "text-muted-foreground"
             )}
             onClick={() => setPanel("request")}
           >
@@ -52,7 +61,7 @@ export default function BackendSection() {
           <button
             className={cn(
               "rounded-md px-3 py-1 text-sm",
-              panel === "response" ? "bg-background" : "text-muted-foreground",
+              panel === "response" ? "bg-background" : "text-muted-foreground"
             )}
             onClick={() => setPanel("response")}
           >
@@ -88,6 +97,6 @@ export default function BackendSection() {
         github="#"
         demo="#"
       />
-    </div>
-  )
+    </FullViewportSection>
+  );
 }

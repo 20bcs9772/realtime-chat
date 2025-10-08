@@ -1,11 +1,20 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import ParticlesCanvas from "@/components/particles";
 
 export default function Hero() {
   return (
     <section className="relative container mx-auto px-4 pt-10 pb-16 md:pt-16 md:pb-24">
+      {/* particles background */}
+      <div className="absolute inset-0 -z-10">
+        <ParticlesCanvas
+          className="absolute inset-0"
+          density={0.45}
+          speed={0.7}
+        />
+      </div>
       <div className="grid gap-8 md:grid-cols-2 md:items-center">
         <div>
           <motion.h1
@@ -22,7 +31,8 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Full Stack Developer — crafting high-performance UIs and robust backends for web, mobile, and cloud.
+            Full Stack Developer — crafting high-performance UIs and robust
+            backends for web, mobile, and cloud.
           </motion.p>
 
           <motion.div
@@ -66,7 +76,9 @@ export default function Hero() {
         >
           <div className="absolute inset-0 grid place-items-center">
             <div className="text-center">
-              <p className="text-sm text-muted-foreground">Interactive portfolio</p>
+              <p className="text-sm text-muted-foreground">
+                Interactive portfolio
+              </p>
               <p className="mt-1 text-2xl font-semibold">Modular Skill Demos</p>
             </div>
           </div>
@@ -78,5 +90,5 @@ export default function Hero() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

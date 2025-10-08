@@ -1,44 +1,78 @@
-"use client"
+"use client";
 
-import { useMemo, useState } from "react"
-import { motion } from "framer-motion"
-import { Card } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Switch } from "@/components/ui/switch"
+import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { Card } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import FullViewportSection from "@/components/sections/full-viewport-section";
+import { UnderTheHood } from "@/components/under-the-hood";
 
-type CT = "Post" | "Product" | "Doc"
+type CT = "Post" | "Product" | "Doc";
 
-const PREVIEWS: Record<CT, { title: string; body: string; fields: string[] }> = {
-  Post: {
-    title: "Introducing Payload CMS",
-    body: "Model content, manage access, and ship fast with a headless CMS.",
-    fields: ["title:string", "slug:string", "author:relation", "content:richtext", "tags:array"],
-  },
-  Product: {
-    title: "Pro Plan",
-    body: "Best for teams building production apps. Includes premium SLAs.",
-    fields: ["name:string", "price:number", "features:array", "images:media", "inventory:number"],
-  },
-  Doc: {
-    title: "API Reference",
-    body: "Endpoints, parameters, and example responses to integrate quickly.",
-    fields: ["title:string", "sections:array", "version:string", "changelog:array"],
-  },
-}
+const PREVIEWS: Record<CT, { title: string; body: string; fields: string[] }> =
+  {
+    Post: {
+      title: "Introducing Payload CMS",
+      body: "Model content, manage access, and ship fast with a headless CMS.",
+      fields: [
+        "title:string",
+        "slug:string",
+        "author:relation",
+        "content:richtext",
+        "tags:array",
+      ],
+    },
+    Product: {
+      title: "Pro Plan",
+      body: "Best for teams building production apps. Includes premium SLAs.",
+      fields: [
+        "name:string",
+        "price:number",
+        "features:array",
+        "images:media",
+        "inventory:number",
+      ],
+    },
+    Doc: {
+      title: "API Reference",
+      body: "Endpoints, parameters, and example responses to integrate quickly.",
+      fields: [
+        "title:string",
+        "sections:array",
+        "version:string",
+        "changelog:array",
+      ],
+    },
+  };
 
 export default function CMSAdvancedSection() {
-  const [ct, setCt] = useState<CT>("Post")
-  const [showSchema, setShowSchema] = useState(true)
+  const [ct, setCt] = useState<CT>("Post");
+  const [showSchema, setShowSchema] = useState(true);
 
-  const content = useMemo(() => PREVIEWS[ct], [ct])
+  const content = useMemo(() => PREVIEWS[ct], [ct]);
 
   return (
-    <div>
+    <FullViewportSection
+      id="cms-advanced"
+      ariaLabel="Payload CMS dynamic preview"
+    >
       <div className="flex items-end justify-between gap-4">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold">Payload CMS — Dynamic Preview</h2>
-          <p className="mt-2 text-muted-foreground">Select a content type and toggle schema visualization.</p>
+          <h2 className="text-2xl md:text-3xl font-bold">
+            Payload CMS — Dynamic Preview
+          </h2>
+          <p className="mt-2 text-muted-foreground">
+            Select a content type and toggle schema visualization.
+          </p>
         </div>
+        <UnderTheHood text="Controlled selects/switches drive preview and schema panels; motion-based reveal on scroll." />
       </div>
 
       <div className="mt-6 grid gap-6 md:grid-cols-2">
@@ -72,7 +106,9 @@ export default function CMSAdvancedSection() {
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
           >
-            <span className="text-xs text-muted-foreground">Simulated live content preview</span>
+            <span className="text-xs text-muted-foreground">
+              Simulated live content preview
+            </span>
           </motion.div>
         </Card>
 
@@ -84,7 +120,8 @@ export default function CMSAdvancedSection() {
                 <div key={f} className="rounded-md border bg-card p-3 text-xs">
                   <span className="font-mono">{f}</span>
                   <p className="mt-1 text-muted-foreground">
-                    Field <span className="font-mono">{f.split(":")[0]}</span> defines content structure and validation.
+                    Field <span className="font-mono">{f.split(":")[0]}</span>{" "}
+                    defines content structure and validation.
                   </p>
                 </div>
               ))}
@@ -94,6 +131,6 @@ export default function CMSAdvancedSection() {
           )}
         </Card>
       </div>
-    </div>
-  )
+    </FullViewportSection>
+  );
 }

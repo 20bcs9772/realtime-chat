@@ -1,11 +1,24 @@
-"use client"
+"use client";
 
-import { useMemo, useState } from "react"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useMemo, useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import FullViewportSection from "@/components/sections/full-viewport-section";
+import { UnderTheHood } from "@/components/under-the-hood";
 
-type Order = { id: string; country: string; status: "paid" | "pending" | "failed"; amount: number }
+type Order = {
+  id: string;
+  country: string;
+  status: "paid" | "pending" | "failed";
+  amount: number;
+};
 
 const ORDERS: Order[] = [
   { id: "1", country: "IN", status: "paid", amount: 1200 },
@@ -14,25 +27,26 @@ const ORDERS: Order[] = [
   { id: "4", country: "IN", status: "failed", amount: 500 },
   { id: "5", country: "US", status: "paid", amount: 3200 },
   { id: "6", country: "DE", status: "pending", amount: 1500 },
-]
+];
 
 export default function AdvancedQueriesSection() {
-  const [status, setStatus] = useState<"all" | Order["status"]>("all")
-  const [country, setCountry] = useState<"all" | "IN" | "US" | "DE">("all")
-  const [minAmount, setMinAmount] = useState<string>("0")
+  const [status, setStatus] = useState<"all" | Order["status"]>("all");
+  const [country, setCountry] = useState<"all" | "IN" | "US" | "DE">("all");
+  const [minAmount, setMinAmount] = useState<string>("0");
 
   const filtered = useMemo(() => {
-    const min = Number(minAmount || 0)
+    const min = Number(minAmount || 0);
     return ORDERS.filter((o) => (status === "all" ? true : o.status === status))
       .filter((o) => (country === "all" ? true : o.country === country))
-      .filter((o) => o.amount >= min)
-  }, [status, country, minAmount])
+      .filter((o) => o.amount >= min);
+  }, [status, country, minAmount]);
 
   const aggByCountry = useMemo(() => {
-    const m = new Map<string, number>()
-    for (const o of filtered) m.set(o.country, (m.get(o.country) || 0) + o.amount)
-    return Array.from(m.entries()).map(([c, sum]) => ({ country: c, sum }))
-  }, [filtered])
+    const m = new Map<string, number>();
+    for (const o of filtered)
+      m.set(o.country, (m.get(o.country) || 0) + o.amount);
+    return Array.from(m.entries()).map(([c, sum]) => ({ country: c, sum }));
+  }, [filtered]);
 
   const queryPreview = {
     filter: {
@@ -41,14 +55,23 @@ export default function AdvancedQueriesSection() {
       minAmount: Number(minAmount || 0),
     },
     sort: { by: "amount", dir: "desc" },
-  }
+  };
 
   return (
-    <div>
-      <h2 className="text-2xl md:text-3xl font-bold">Advanced Queries</h2>
-      <p className="mt-2 text-muted-foreground">
-        Simulate complex data queries and real-time transformations to mirror backend logic.
-      </p>
+    <FullViewportSection
+      id="advanced-queries"
+      ariaLabel="Advanced queries and transforms"
+    >
+      <div className="flex items-end justify-between gap-4">
+        <div>
+          <h2 className="text-2xl md:text-3xl font-bold">Advanced Queries</h2>
+          <p className="mt-2 text-muted-foreground">
+            Simulate complex data queries and real-time transformations to
+            mirror backend logic.
+          </p>
+        </div>
+        <UnderTheHood text="Pure client-side filtering/aggregation with memoization. Live bar chart sized by computed aggregates." />
+      </div>
 
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         {/* Left: Query Builder + JSON Preview */}
@@ -72,7 +95,10 @@ export default function AdvancedQueriesSection() {
 
             <div className="grid gap-2">
               <label className="text-sm">Country</label>
-              <Select value={country} onValueChange={(v) => setCountry(v as any)}>
+              <Select
+                value={country}
+                onValueChange={(v) => setCountry(v as any)}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Select country" />
                 </SelectTrigger>
@@ -87,7 +113,11 @@ export default function AdvancedQueriesSection() {
 
             <div className="grid gap-2">
               <label className="text-sm">Min Amount</label>
-              <Input inputMode="numeric" value={minAmount} onChange={(e) => setMinAmount(e.target.value)} />
+              <Input
+                inputMode="numeric"
+                value={minAmount}
+                onChange={(e) => setMinAmount(e.target.value)}
+              />
             </div>
 
             <pre className="mt-4 rounded-md border bg-muted/40 p-3 text-xs leading-relaxed">
@@ -98,23 +128,37 @@ export default function AdvancedQueriesSection() {
 
         {/* Right: Data Transformation Visualizer */}
         <Card className="p-4">
-          <div className="text-lg font-semibold">Data Transformation Visualizer</div>
-          <p className="mt-1 text-sm text-muted-foreground">Bars update live as you change the query.</p>
+          <div className="text-lg font-semibold">
+            Data Transformation Visualizer
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Bars update live as you change the query.
+          </p>
           <div className="mt-4 grid gap-4">
             <div className="rounded-md border bg-card p-4">
               <div className="grid grid-cols-3 gap-3 items-end h-40">
                 {aggByCountry.map((r) => {
-                  const max = Math.max(...aggByCountry.map((a) => a.sum), 1)
-                  const h = Math.max(8, Math.round((r.sum / max) * 140))
+                  const max = Math.max(...aggByCountry.map((a) => a.sum), 1);
+                  const h = Math.max(8, Math.round((r.sum / max) * 140));
                   return (
-                    <div key={r.country} className="grid gap-2 justify-items-center">
-                      <div className="w-10 rounded-sm bg-primary" style={{ height: h }} />
-                      <span className="text-xs text-muted-foreground">{r.country}</span>
+                    <div
+                      key={r.country}
+                      className="grid gap-2 justify-items-center"
+                    >
+                      <div
+                        className="w-10 rounded-sm bg-primary"
+                        style={{ height: h }}
+                      />
+                      <span className="text-xs text-muted-foreground">
+                        {r.country}
+                      </span>
                     </div>
-                  )
+                  );
                 })}
                 {aggByCountry.length === 0 && (
-                  <div className="text-xs text-muted-foreground">No data for current filters.</div>
+                  <div className="text-xs text-muted-foreground">
+                    No data for current filters.
+                  </div>
                 )}
               </div>
             </div>
@@ -122,17 +166,28 @@ export default function AdvancedQueriesSection() {
             <div className="text-sm font-medium">Simulated Result Set</div>
             <div className="space-y-2">
               {filtered.map((o) => (
-                <div key={o.id} className="rounded-md border bg-card p-3 text-xs">
-                  ID: {o.id} — <span className="text-muted-foreground">Country: {o.country}</span> —{" "}
-                  <span className="text-muted-foreground">Status: {o.status}</span> —{" "}
-                  <span className="font-mono">{o.amount}</span>
+                <div
+                  key={o.id}
+                  className="rounded-md border bg-card p-3 text-xs"
+                >
+                  ID: {o.id} —{" "}
+                  <span className="text-muted-foreground">
+                    Country: {o.country}
+                  </span>{" "}
+                  —{" "}
+                  <span className="text-muted-foreground">
+                    Status: {o.status}
+                  </span>{" "}
+                  — <span className="font-mono">{o.amount}</span>
                 </div>
               ))}
-              {filtered.length === 0 && <div className="text-xs text-muted-foreground">No results.</div>}
+              {filtered.length === 0 && (
+                <div className="text-xs text-muted-foreground">No results.</div>
+              )}
             </div>
           </div>
         </Card>
       </div>
-    </div>
-  )
+    </FullViewportSection>
+  );
 }
