@@ -22,7 +22,7 @@ export async function GET(req: Request) {
   await setStateCookie(state);
 
   const callback = await absoluteUrl("/api/github/oauth/callback");
-  const scope = encodeURIComponent("public_repo workflow read:user");
+  const scope = encodeURIComponent("public_repo");
   const encodedCallback = encodeURIComponent(callback);
   const location = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodedCallback}&scope=${scope}&state=${state}`;
 
