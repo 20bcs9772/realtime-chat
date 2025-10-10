@@ -32,7 +32,7 @@ export default function FrontendSection() {
 
   return (
     <div>
-      <div className="flex items-end justify-between gap-4">
+      <div className="flex items-end justify-between gap-4 py-5">
         <div>
           <h2 className="text-2xl md:text-3xl font-bold">
             Frontend & Animation
@@ -60,6 +60,7 @@ export default function FrontendSection() {
         <Interactive3DUIPanel
           title="Interactive 3D UI"
           subtitle="Scroll to zoom & orbit. Hover to highlight."
+          modelUrl="/models/skull.glb"
         />
       </FullBleed>
 

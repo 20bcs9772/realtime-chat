@@ -7,10 +7,10 @@ import BackendSection from "@/components/sections/backend-section";
 import MapsSection from "@/components/sections/maps-section";
 import ApiIntegrationsSection from "@/components/sections/api-integrations-section";
 import AdvancedQueriesSection from "@/components/sections/advanced-queries-section";
-import AwsCloudSection from "@/components/sections/aws-cloud-section";
 import RealtimeSection from "@/components/sections/realtime-section";
 import CMSAdvancedSection from "@/components/sections/cms-advanced-section";
 import PaymentsSection from "@/components/sections/payments-section";
+import DevOpsPipelineSection from "@/components/sections/devops-pipeline-section";
 
 type TabKey = "frontend" | "backend" | "devops" | "others";
 
@@ -50,7 +50,8 @@ export default function SkillsTabs() {
       frontend:
         "Micro‑interactions, Interactive 3D UI, and Dynamic Components — all full‑screen & responsive.",
       backend: "Advanced queries, backend APIs, and Payload CMS simulations.",
-      devops: "AWS deployment flow and interactive service diagram.",
+      devops:
+        "AWS deployment flow, interactive service diagram, and GitHub CI/CD showcase.",
       others: "Maps & geo, third‑party integrations, and payment gateways.",
     }),
     []
@@ -94,7 +95,7 @@ export default function SkillsTabs() {
         <TabsContent value="devops">
           <div id="skills-devops" />
           <div className="space-y-8">
-            <AwsCloudSection />
+            <DevOpsPipelineSection />
           </div>
         </TabsContent>
 

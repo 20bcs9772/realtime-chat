@@ -169,7 +169,7 @@ export function Interactive3DUIPanel({
 
   return (
     <section id="interactive-3d-ui" aria-label="Interactive 3D UI">
-      <div ref={wrapperRef} className="relative h-[300vh]">
+      <div ref={wrapperRef} className="relative h-[400vh]">
         <div className="sticky top-0 h-screen w-screen overflow-hidden">
           <div className="absolute inset-0">
             <Canvas
@@ -217,7 +217,7 @@ export function Interactive3DUIPanel({
 
           <motion.div
             style={{ opacity: headerOpacity }}
-            className="relative z-10 mx-auto max-w-2xl px-6 text-center"
+            className="relative z-10 mx-auto max-w-2xl px-6 text-center py-10 mt-5"
           >
             <h2 className="text-balance text-3xl md:text-5xl font-semibold">
               {title}
