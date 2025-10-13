@@ -5,7 +5,7 @@ import FloatingCTA from "@/components/site/floating-cta";
 
 export default function Page() {
   return (
-    <main className="min-h-dvh bg-background text-foreground">
+    <main className="min-h-dvh bg-background text-foreground snap-y snap-mandatory">
       <Navbar />
       <Hero />
       <SkillsTabs />

@@ -7,8 +7,10 @@ type Props = {
   speed?: number; // 0.5 - 2.0 typical
   density?: number; // 0.3 - 1.2 typical
   fontSize?: number; // px
-  color?: string; // rgba color
+  color?: string; // rgba color (overrides theme colors if provided)
   trailAlpha?: number; // 0.05 - 0.2 typical
+  lightColor?: string;
+  darkColor?: string;
 };
 
 const CHARSET =
@@ -19,13 +21,18 @@ export default function MatrixRain({
   speed = 1.0,
   density = 0.8,
   fontSize = 14,
-  color = "rgba(0, 255, 135, 0.7)",
+  color, // when provided, use directly
   trailAlpha = 0.15,
+  lightColor = "rgba(0, 120, 60, 0.7)", // visible on light bg
+  darkColor = "rgba(0, 255, 135, 0.7)", // original green for dark
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const dropsRef = useRef<number[]>([]);
   const colsRef = useRef<number>(0);
+
+  const textColorRef = useRef<string>(color || darkColor);
+  const fadeFillRef = useRef<string>("rgba(0,0,0,0.15)");
 
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -34,8 +41,33 @@ export default function MatrixRain({
 
     const dpr = Math.max(1, window.devicePixelRatio || 1);
 
+    const updateThemeColors = () => {
+      if (color) {
+        textColorRef.current = color;
+        // keep a neutral fade; trails look fine over both modes when overriding color explicitly
+        fadeFillRef.current = `rgba(0,0,0,${Math.max(
+          0,
+          Math.min(1, trailAlpha)
+        )})`;
+        return;
+      }
+      const isDark = document.documentElement.classList.contains("dark");
+      textColorRef.current = isDark ? darkColor : lightColor;
+      fadeFillRef.current = isDark
+        ? `rgba(0,0,0,${Math.max(0, Math.min(1, trailAlpha))})`
+        : `rgba(255,255,255,${Math.max(0, Math.min(1, trailAlpha))})`;
+    };
+
+    updateThemeColors();
+    const mo = new MutationObserver(updateThemeColors);
+    mo.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
     const resize = () => {
-      const { clientWidth, clientHeight } = canvas.parentElement || canvas;
+      const parent = canvas.parentElement || canvas;
+      const { clientWidth, clientHeight } = parent;
       canvas.width = Math.floor(clientWidth * dpr);
       canvas.height = Math.floor(clientHeight * dpr);
       canvas.style.width = `${clientWidth}px`;
@@ -60,25 +92,20 @@ export default function MatrixRain({
       const dt = Math.min(50, t - lastTime);
       lastTime = t;
 
-      // fade to create trail
-      ctx.fillStyle = `rgba(0,0,0,${Math.max(0, Math.min(1, trailAlpha))})`;
+      ctx.fillStyle = fadeFillRef.current;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       const colWidth = fontSize;
       const cols = colsRef.current;
-      const rows = Math.ceil(
-        canvas.height / (fontSize * (window.devicePixelRatio || 1))
-      );
       const baseStep = Math.max(1, (dt / (16.67 / speed)) | 0);
 
       for (let i = 0; i < cols; i++) {
         const x = i * colWidth;
         const char = CHARSET.charAt((Math.random() * CHARSET.length) | 0);
-        ctx.fillStyle = color;
+        ctx.fillStyle = textColorRef.current; // live color
         const y = dropsRef.current[i] * fontSize;
         ctx.fillText(char, x, y);
 
-        // advance drop with density and speed
         const advance = Math.max(
           1,
           Math.round(baseStep * (0.6 + Math.random() * 0.8))
@@ -97,8 +124,9 @@ export default function MatrixRain({
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       ro.disconnect();
+      mo.disconnect();
     };
-  }, [speed, density, fontSize, color, trailAlpha]);
+  }, [speed, density, fontSize, color, trailAlpha, lightColor, darkColor]);
 
   return <canvas ref={canvasRef} className={className} aria-hidden />;
 }

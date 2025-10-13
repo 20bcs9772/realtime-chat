@@ -58,7 +58,10 @@ export default function SkillsTabs() {
   );
 
   return (
-    <section id="skills" className="container mx-auto px-4 py-16 md:py-24">
+    <section
+      id="skills"
+      className="container mx-auto px-4 py-16 md:py-24 snap-start"
+    >
       <div className="mb-6 md:mb-8">
         <h2 className="text-2xl md:text-3xl font-bold text-pretty">Skills</h2>
         <p className="text-muted-foreground mt-2">{description[tab]}</p>

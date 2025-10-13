@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, User } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -52,7 +52,7 @@ export default function Navbar() {
         <Link href="/" className="font-semibold">
           <span className="sr-only">Madhav Bansal</span>
           <div aria-hidden className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-md bg-primary" />
+            <User className="h-6 w-6 rounded-md" />
             <span className="text-sm md:text-base">Madhav Bansal</span>
           </div>
         </Link>

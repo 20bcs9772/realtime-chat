@@ -1,43 +1,45 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import ParticlesCanvas from "@/components/particles";
 import MatrixRain from "@/components/matrix-rain";
+import FullViewportSection from "@/components/sections/full-viewport-section";
 
 export default function Hero() {
   return (
-    <section className="relative container mx-auto px-4 pt-10 pb-16 md:pt-16 md:pb-24">
+    <FullViewportSection id="hero" className="snap-start">
       <div className="absolute inset-0 z-0">
-        <ParticlesCanvas
-          className="absolute inset-0"
-          density={0.45}
-          speed={0.7}
-        />
         <MatrixRain
-          className="absolute inset-0 opacity-60 mix-blend-screen pointer-events-none"
-          speed={0.1}
-          density={0.2}
-          fontSize={13}
-          color="#e1e1e1"
-          trailAlpha={0.2}
+          className="absolute inset-0 pointer-events-none opacity-60 mix-blend-multiply dark:mix-blend-screen"
+          speed={0.001}
+          density={0.22}
+          fontSize={16}
+          trailAlpha={0.18}
+          darkColor="#595959"
+          lightColor="#454545"
         />
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(120% 80% at 50% 20%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.25) 100%), repeating-linear-gradient(0deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05) 1px, transparent 1px, transparent 2px)",
+              "radial-gradient(120% 80% at 50% 20%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.18) 100%), repeating-linear-gradient(0deg, color-mix(in oklch, var(--color-foreground) 6%, transparent) 0 1px, transparent 1px 2px)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, color-mix(in oklch, var(--color-background) 0%, transparent) 0%, var(--color-background) 80%)",
           }}
         />
       </div>
+
       <div className="relative z-10 grid gap-8 md:grid-cols-2 md:items-center">
         <div>
           <h1 className="text-3xl md:text-5xl font-bold text-pretty relative">
             <span className="relative">
               Madhav Bansal
-              <span
-                aria-hidden
-                className="absolute inset-0 -z-10 blur-md"
-              />
+              <span aria-hidden className="absolute inset-0 -z-10 blur-md" />
             </span>
           </h1>
           <p className="mt-3 text-lg text-muted-foreground">
@@ -80,8 +82,7 @@ export default function Hero() {
             className="pointer-events-none absolute inset-0 rounded-lg"
             style={{
               border: "1px solid #9d9e9d",
-              boxShadow:
-                "inset 0 0 20px #9d9e9d, 0 0 24px #9d9e8e",
+              boxShadow: "inset 0 0 20px #9d9e9d, 0 0 24px #9d9e8e",
             }}
           />
           <img
@@ -91,6 +92,6 @@ export default function Hero() {
           />
         </div>
       </div>
-    </section>
+    </FullViewportSection>
   );
 }
