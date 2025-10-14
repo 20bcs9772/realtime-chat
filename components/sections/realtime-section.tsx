@@ -132,7 +132,6 @@ export default function RealtimeSection() {
     wsRef.current.send(JSON.stringify({ type: "message", text: t }));
     setText("");
 
-    // Stop typing indicator
     wsRef.current.send(JSON.stringify({ type: "typing", isTyping: false }));
   };
 
@@ -141,17 +140,14 @@ export default function RealtimeSection() {
 
     if (!wsRef.current) return;
 
-    // Send typing indicator
     wsRef.current.send(
       JSON.stringify({ type: "typing", isTyping: value.length > 0 })
     );
 
-    // Clear existing timeout
     if (typingTimeoutRef.current) {
       clearTimeout(typingTimeoutRef.current);
     }
 
-    // Stop typing after 1 second of inactivity
     typingTimeoutRef.current = setTimeout(() => {
       if (wsRef.current) {
         wsRef.current.send(JSON.stringify({ type: "typing", isTyping: false }));
@@ -307,12 +303,7 @@ export default function RealtimeSection() {
                 Built With:
               </p>
               <div className="flex flex-wrap gap-2">
-                {[
-                  "WebSockets",
-                  "Next.js 15",
-                  "Real-time Sync",
-                  "Room Management",
-                ].map((tech) => (
+                {["WebSockets", "Next.js", "Real-time Sync"].map((tech) => (
                   <span
                     key={tech}
                     className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium border border-primary/20"
