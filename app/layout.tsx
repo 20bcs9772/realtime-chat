@@ -21,7 +21,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable} antialiased scroll-smooth`}
+      className={`${GeistSans.variable} ${GeistMono.variable} antialiased scroll-smooth overflow-x-hidden`}
     >
       <body className="font-sans">
         <Suspense fallback={<PageLoadingSkeleton />}>{children}</Suspense>

@@ -169,7 +169,7 @@ export function Interactive3DUIPanel({
 
   return (
     <section id="interactive-3d-ui" aria-label="Interactive 3D UI">
-      <div ref={wrapperRef} className="relative h-[500vh]">
+      <div ref={wrapperRef} className="relative h-[100vh]">
         <div className="sticky top-0 h-screen w-screen overflow-hidden">
           <div className="absolute inset-0">
             <Canvas
