@@ -6,7 +6,7 @@ import SkillModal from "@/components/skill-modal";
 
 import { MicroInteractionsPanel } from "./frontend/micro-interactions-panel";
 import { Interactive3DUIPanel } from "./frontend/interactive-3d-ui-panel";
-import { DynamicComponentsPanel } from "./frontend/dynamic-components-panel";
+// import GSAPScrollSmoother from "./gsap-scroll-smoother";
 
 function FullBleed({
   children,
@@ -38,8 +38,9 @@ export default function FrontendSection() {
             Frontend & Animation
           </h2>
           <p className="mt-2 text-muted-foreground">
-            Three full-screen interactive demos: Motion micro‑interactions, an
-            interactive 3D UI, and dynamic components.
+            Four full-screen interactive demos: Motion micro‑interactions, an
+            interactive 3D UI, smooth scrolling with GSAP, and dynamic parallax
+            effects.
           </p>
         </div>
         <button
@@ -55,25 +56,23 @@ export default function FrontendSection() {
         <MicroInteractionsPanel />
       </FullBleed>
 
-      {/* Panel 2: Interactive 3D UI (renamed) */}
+      {/* Panel 2: Interactive 3D UI */}
       <FullBleed>
         <Interactive3DUIPanel
           title="Interactive 3D UI"
           subtitle="Scroll to zoom & orbit. Hover to highlight."
-          modelUrl="/models/skull.glb"
         />
       </FullBleed>
 
-      {/* Panel 3: Dynamic Components */}
-      <FullBleed className="border-t">
-        <DynamicComponentsPanel />
-      </FullBleed>
+      {/* <FullBleed className="border-t">
+        <GSAPScrollSmoother />
+      </FullBleed> */}
 
       <SkillModal
         open={open}
         onClose={() => setOpen(false)}
         title="Frontend & Animation"
-        description="React, Next.js App Router, Tailwind CSS, Shadcn/UI, Framer Motion, and three.js."
+        description="React, Next.js App Router, Tailwind CSS, Shadcn/UI, Framer Motion, GSAP, and three.js."
         github="#"
         demo="#"
       />
