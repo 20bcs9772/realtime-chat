@@ -4,7 +4,7 @@ import type React from "react";
 import { useState } from "react";
 import SkillModal from "@/components/skill-modal";
 
-import { MicroInteractionsPanel } from "./frontend/micro-interactions-panel";
+// import { MicroInteractionsPanel } from "./frontend/micro-interactions-panel";
 import { Interactive3DUIPanel } from "./frontend/interactive-3d-ui-panel";
 // import GSAPScrollSmoother from "./gsap-scroll-smoother";
 
@@ -38,7 +38,7 @@ export default function FrontendSection() {
             Frontend & Animation
           </h2>
           <p className="mt-2 text-muted-foreground">
-            Four full-screen interactive demos: Motion micro‑interactions, an
+            Four full-screen interactive demos: Motion micro-interactions, an
             interactive 3D UI, smooth scrolling with GSAP, and dynamic parallax
             effects.
           </p>
@@ -52,9 +52,9 @@ export default function FrontendSection() {
       </div>
 
       {/* Panel 1: Motion Micro‑Interactions */}
-      <FullBleed bg="border-y">
+      {/* <FullBleed bg="border-y">
         <MicroInteractionsPanel />
-      </FullBleed>
+      </FullBleed> */}
 
       {/* Panel 2: Interactive 3D UI */}
       <FullBleed>
@@ -63,8 +63,8 @@ export default function FrontendSection() {
           subtitle="Scroll to zoom & orbit. Hover to highlight."
         />
       </FullBleed>
-
-      {/* <FullBleed className="border-t">
+{/* 
+      <FullBleed className="border-t">
         <GSAPScrollSmoother />
       </FullBleed> */}
 
