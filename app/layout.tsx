@@ -6,8 +6,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Madhav Bansal",
-  description: "Portfolio",
+  title: "Realtime Chat App",
 };
 
 export default function RootLayout({
