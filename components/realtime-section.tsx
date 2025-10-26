@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import FullViewportSection from "@/components/sections/full-viewport-section";
-import { UnderTheHood } from "@/components/under-the-hood";
+import FullViewportSection from "@/components/full-viewport-section";
 import {
   Users,
   MessageSquare,
@@ -227,14 +226,13 @@ export default function RealtimeSection() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold">
-              Real-Time Chat (WebSockets)
+              Real-Time Chat App
             </h2>
             <p className="mt-2 text-muted-foreground">
               Live multi-user chat with typing indicators. Connect from
               different browsers using the same room ID.
             </p>
           </div>
-          <UnderTheHood text="WebSocket server with room-based messaging, typing indicators, and automatic room cleanup." />
         </div>
 
         {step === "join" ? (
@@ -364,7 +362,7 @@ export default function RealtimeSection() {
                   Built With:
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {["WebSockets", "Next.js", "Real-time Sync"].map((tech) => (
+                  {["WebSockets", "Next.js"].map((tech) => (
                     <span
                       key={tech}
                       className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium border border-primary/20"

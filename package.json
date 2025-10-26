@@ -1,5 +1,5 @@
 {
-  "name": "portfolio",
+  "name": "realtime-chat",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -53,7 +53,6 @@
     "gsap": "^3.13.0",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
-    "mapbox-gl": "^3.15.0",
     "next": "15.2.4",
     "next-themes": "^0.4.6",
     "react": "^19",
@@ -61,7 +60,6 @@
     "react-dom": "^19",
     "react-hook-form": "^7.60.0",
     "react-resizable-panels": "^2.1.7",
-    "recharts": "2.15.4",
     "sonner": "^1.7.4",
     "swr": "^2.3.6",
     "tailwind-merge": "^2.5.5",
@@ -88,18 +86,7 @@
   "directories": {
     "lib": "lib"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/20bcs9772/portfolio.git"
-  },
-  "keywords": [
-    "portfolio"
-  ],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/20bcs9772/portfolio/issues"
-  },
-  "homepage": "https://github.com/20bcs9772/portfolio#readme",
   "description": ""
 }
